@@ -1,0 +1,92 @@
+<project name="jValues" default="release" basedir=".">
+
+  <property name="src" location="src" />
+  <property name="src.generator" location="${src}/generator" />
+  <property name="src.common" location="${src}/common" />
+  <property name="src.jvalues" location="${src}/jvalues" />
+
+  <property name="lib" location="lib" />
+
+  <property name="build" location="build" />
+  <property name="build.generator" location="${build}/generator" />
+  <property name="build.jvalues" location="${build}/jvalues" />
+
+  <property name="release" location="release" />
+
+  <path id="classpath.for.generator">
+    <pathelement location="${lib}/guava-13.0.1.jar" />
+  </path>
+
+  <target name="compile.generator">
+    <mkdir dir="${build.generator}" />
+    <javac destdir="${build.generator}"
+           debug="true"
+           includeAntRuntime="false"
+           debuglevel="lines,vars,source">
+      <compilerarg value="-Xlint:all" />
+      <compilerarg value="-Werror" />
+      <src path="${src.generator}" />
+      <src path="${src.common}" />
+      <classpath refid="classpath.for.generator" />
+    </javac>
+  </target>
+
+  <target name="generate.jvalues" depends="compile.generator">
+    <mkdir dir="${src.jvalues}" />
+    <java classname="com.perunlabs.tool.jvalgen.Main">
+      <arg value="${src.jvalues}"/>
+      <classpath refid="classpath.for.generator" />
+      <classpath>
+        <pathelement path="${build.generator}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="compile.jvalues" depends="generate.jvalues">
+    <mkdir dir="${build.jvalues}" />
+    <javac destdir="${build.jvalues}"
+           debug="true"
+           includeantruntime="false"
+           debuglevel="lines,vars,source">
+      <compilerarg value="-Xlint:all" />
+      <compilerarg value="-Werror" />
+      <src path="${src.jvalues}" />
+      <src path="${src.common}" />
+    </javac>
+  </target>
+
+  <target name="jar.jValues" depends="compile.jvalues">
+    <jar destfile="${release}/jvalues.jar"
+         basedir="${build.jvalues}" />
+  </target>
+
+
+  <!-- 
+       We want to compile to java 1.5 to be compatible with android platform
+       but we need sun 1.7 compiler as it has fixed problems with extending
+       interface methods.
+  -->
+  <property name="jdk5.rt.jar" value="/usr/lib/jvm/java-1.5.0-gcj-4.6/jre/lib/rt.jar" />
+
+  <target name="compile.jvalues-jdk5" depends="generate.jvalues">
+    <mkdir dir="${build.jvalues}" />
+    <javac destdir="${build.jvalues}"
+           source="1.5"
+           target="1.5"
+           bootclasspath="${jdk5.rt.jar}"
+           debug="true"
+           includeantruntime="false"
+           debuglevel="lines,vars,source">
+      <compilerarg value="-Xlint:all" />
+      <compilerarg value="-Werror" />
+      <src path="${src.jvalues}" />
+      <src path="${src.common}" />
+    </javac>
+  </target>
+
+  <target name="jar.jValues-jdk5" depends="compile.jvalues-jdk5">
+    <jar destfile="${release}/jvalues.jar"
+         basedir="${build.jvalues}" />
+  </target>
+
+</project>
