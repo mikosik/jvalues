@@ -1,4 +1,4 @@
-<project name="jValues" default="release" basedir=".">
+<project name="jValues" default="jar.jvalues" basedir=".">
 
   <property name="src" location="src" />
   <property name="src.generator" location="${src}/generator" />
@@ -55,7 +55,7 @@
     </javac>
   </target>
 
-  <target name="jar.jValues" depends="compile.jvalues">
+  <target name="jar.jvalues" depends="compile.jvalues">
     <jar destfile="${release}/jvalues.jar"
          basedir="${build.jvalues}" />
   </target>
@@ -84,7 +84,7 @@
     </javac>
   </target>
 
-  <target name="jar.jValues-jdk5" depends="compile.jvalues-jdk5">
+  <target name="jar.jvalues-jdk5" depends="compile.jvalues-jdk5">
     <jar destfile="${release}/jvalues.jar"
          basedir="${build.jvalues}" />
   </target>
