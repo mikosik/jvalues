@@ -1,6 +1,5 @@
 package com.perunlabs.common.jval.oper;
 
-
 public class IntOps {
   private IntOps() {}
 
@@ -65,7 +64,7 @@ public class IntOps {
     return value1 < value2;
   }
 
-  public static boolean isLte(int value1, int value2) {
+  public static boolean isLtEq(int value1, int value2) {
     return value1 <= value2;
   }
 
@@ -73,7 +72,7 @@ public class IntOps {
     return value1 > value2;
   }
 
-  public static boolean isGte(int value1, int value2) {
+  public static boolean isGtEq(int value1, int value2) {
     return value1 >= value2;
   }
 

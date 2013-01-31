@@ -108,10 +108,10 @@ public class FrameSpec {
     VExpression f2Bottom = vComponentAccess(frame2, FRAME.bottom);
     VExpression f2Top = vComponentAccess(frame2, FRAME.top);
 
-    VExpression cond1 = FloatSpec.IS_GTE.vCall(f1Right, f2Left);
-    VExpression cond2 = FloatSpec.IS_GTE.vCall(f2Right, f1Left);
-    VExpression cond3 = FloatSpec.IS_GTE.vCall(f1Top, f2Bottom);
-    VExpression cond4 = FloatSpec.IS_GTE.vCall(f2Top, f1Bottom);
+    VExpression cond1 = FloatSpec.IS_GTEQ.vCall(f1Right, f2Left);
+    VExpression cond2 = FloatSpec.IS_GTEQ.vCall(f2Right, f1Left);
+    VExpression cond3 = FloatSpec.IS_GTEQ.vCall(f1Top, f2Bottom);
+    VExpression cond4 = FloatSpec.IS_GTEQ.vCall(f2Top, f1Bottom);
 
     VExpression and1 = BoolSpec.AND.vCall(cond1, cond2);
     VExpression and2 = BoolSpec.AND.vCall(and1, cond3);

@@ -29,9 +29,9 @@ public class LongSpec {
 
   public static final BasicVFunction IS_EQ = func("isEq");
   public static final BasicVFunction IS_LT = func("isLt");
-  public static final BasicVFunction IS_LTE = func("isLte");
+  public static final BasicVFunction IS_LTEQ = func("isLtEq");
   public static final BasicVFunction IS_GT = func("isGt");
-  public static final BasicVFunction IS_GTE = func("isGte");
+  public static final BasicVFunction IS_GTEQ = func("isGtEq");
 
   private static BasicVFunction func(String name) {
     return simple(VLONG, LongOps.class, name);
@@ -42,5 +42,5 @@ public class LongSpec {
   }
 
   public static final ImmutableList<BasicVFunction> ALL_OPERATIONS = list(ADD, SUB, MUL, DIV, NEG,
-      DIF, INC, DEC, MODULO, MAX, MIN, IS_EQ, IS_LT, IS_LTE, IS_GT, IS_GTE);
+      DIF, INC, DEC, MODULO, MAX, MIN, IS_EQ, IS_LT, IS_LTEQ, IS_GT, IS_GTEQ);
 }

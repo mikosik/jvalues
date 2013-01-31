@@ -35,9 +35,9 @@ public class FloatSpec {
   public static final BasicVFunction SQRT = func("sqrt");
   public static final BasicVFunction IS_EQ = func("isEq");
   public static final BasicVFunction IS_LT = func("isLt");
-  public static final BasicVFunction IS_LTE = func("isLte");
+  public static final BasicVFunction IS_LTEQ = func("isLtEq");
   public static final BasicVFunction IS_GT = func("isGt");
-  public static final BasicVFunction IS_GTE = func("isGte");
+  public static final BasicVFunction IS_GTEQ = func("isGtEq");
   public static final BasicVFunction TO_INT = func("toInt");
 
   private static BasicVFunction func(String name) {
@@ -50,5 +50,5 @@ public class FloatSpec {
 
   public static final ImmutableList<BasicVFunction> ALL_OPERATIONS = list(ADD, SUB, MUL, DIV, NEG,
       DIF, MODULO, MAX, MIN, CLAMP, FLOOR, CEIL, ROUND, SIN, COS, ATAN2, AVERAGE, SQR, SQRT, IS_EQ,
-      IS_LT, IS_LTE, IS_GT, IS_GTE, TO_INT);
+      IS_LT, IS_LTEQ, IS_GT, IS_GTEQ, TO_INT);
 }

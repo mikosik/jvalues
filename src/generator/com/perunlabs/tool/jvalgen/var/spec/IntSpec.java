@@ -29,9 +29,9 @@ public class IntSpec {
 
   public static final BasicVFunction IS_EQ = func("isEq");
   public static final BasicVFunction IS_LT = func("isLt");
-  public static final BasicVFunction IS_LTE = func("isLte");
+  public static final BasicVFunction IS_LTEQ = func("isLtEq");
   public static final BasicVFunction IS_GT = func("isGt");
-  public static final BasicVFunction IS_GTE = func("isGte");
+  public static final BasicVFunction IS_GTEQ = func("isGtEq");
   public static final BasicVFunction TO_FLOAT = func("toFloat");
 
   private static BasicVFunction func(String name) {
@@ -43,5 +43,5 @@ public class IntSpec {
   }
 
   public static final ImmutableList<BasicVFunction> ALL_OPERATIONS = list(ADD, SUB, MUL, DIV, NEG,
-      DIF, INC, DEC, MODULO, MAX, MIN, IS_EQ, IS_LT, IS_LTE, IS_GT, IS_GTE, TO_FLOAT);
+      DIF, INC, DEC, MODULO, MAX, MIN, IS_EQ, IS_LT, IS_LTEQ, IS_GT, IS_GTEQ, TO_FLOAT);
 }

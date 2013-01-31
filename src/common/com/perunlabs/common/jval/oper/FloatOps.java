@@ -109,7 +109,7 @@ public class FloatOps {
     return value1 < value2;
   }
 
-  public static boolean isLte(float value1, float value2) {
+  public static boolean isLtEq(float value1, float value2) {
     return value1 <= value2;
   }
 
@@ -117,7 +117,7 @@ public class FloatOps {
     return value1 > value2;
   }
 
-  public static boolean isGte(float value1, float value2) {
+  public static boolean isGtEq(float value1, float value2) {
     return value1 >= value2;
   }
 

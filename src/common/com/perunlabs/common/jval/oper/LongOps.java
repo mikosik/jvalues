@@ -1,6 +1,5 @@
 package com.perunlabs.common.jval.oper;
 
-
 public class LongOps {
   private LongOps() {}
 
@@ -65,7 +64,7 @@ public class LongOps {
     return value1 < value2;
   }
 
-  public static boolean isLte(long value1, long value2) {
+  public static boolean isLtEq(long value1, long value2) {
     return value1 <= value2;
   }
 
@@ -73,7 +72,7 @@ public class LongOps {
     return value1 > value2;
   }
 
-  public static boolean isGte(long value1, long value2) {
+  public static boolean isGtEq(long value1, long value2) {
     return value1 >= value2;
   }
 }
