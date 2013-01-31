@@ -21,10 +21,6 @@ import com.perunlabs.tool.jvalgen.var.type.VParam;
 public class FrameSpec {
   private FrameSpec() {}
 
-  public static final VFunction V1 = v1();
-  public static final VFunction V2 = v2();
-  public static final VFunction V3 = v3();
-  public static final VFunction V4 = v4();
   public static final VFunction CENTER = center();
   public static final VFunction WIDTH = width();
   public static final VFunction HEIGHT = height();
@@ -36,52 +32,8 @@ public class FrameSpec {
   public static final VFunction MOVE = move();
   public static final VFunction MUL = compoundLowVFunction(FRAME, FloatSpec.MUL);
 
-  public static final ImmutableList<VFunction> ALL_OPERATIONS = list(V1, V2, V3, V4, CENTER, WIDTH,
-      HEIGHT, SIZE, ASPEC_RATIO, IS_OVERLAPPING, MOVE, MUL);
-
-  private static ExpressionVFunction v1() {
-    VParam frame = vParam(FRAME, "frame");
-
-    VExpression left = vComponentAccess(frame, FRAME.left);
-    VExpression bottom = vComponentAccess(frame, FRAME.bottom);
-
-    VExpression result = vCreate(VECTOR, list(left, bottom));
-
-    return vFunction(FRAME, VECTOR, "v1", list(frame), result, false);
-  }
-
-  private static ExpressionVFunction v2() {
-    VParam frame = vParam(FRAME, "frame");
-
-    VExpression right = vComponentAccess(frame, FRAME.right);
-    VExpression bottom = vComponentAccess(frame, FRAME.bottom);
-
-    VExpression result = vCreate(VECTOR, list(right, bottom));
-
-    return vFunction(FRAME, VECTOR, "v2", list(frame), result, false);
-  }
-
-  private static ExpressionVFunction v3() {
-    VParam frame = vParam(FRAME, "frame");
-
-    VExpression right = vComponentAccess(frame, FRAME.right);
-    VExpression top = vComponentAccess(frame, FRAME.top);
-
-    VExpression result = vCreate(VECTOR, list(right, top));
-
-    return vFunction(FRAME, VECTOR, "v3", list(frame), result, false);
-  }
-
-  private static ExpressionVFunction v4() {
-    VParam frame = vParam(FRAME, "frame");
-
-    VExpression left = vComponentAccess(frame, FRAME.left);
-    VExpression top = vComponentAccess(frame, FRAME.top);
-
-    VExpression result = vCreate(VECTOR, list(left, top));
-
-    return vFunction(FRAME, VECTOR, "v4", list(frame), result, false);
-  }
+  public static final ImmutableList<VFunction> ALL_OPERATIONS = list(CENTER, WIDTH, HEIGHT, SIZE,
+      ASPEC_RATIO, IS_OVERLAPPING, MOVE, MUL);
 
   private static ExpressionVFunction center() {
     VParam frame = vParam(FRAME, "frame");
