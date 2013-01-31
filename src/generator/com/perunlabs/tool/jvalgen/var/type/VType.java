@@ -137,12 +137,12 @@ public class VType {
     return vComponents.contains(vComponent);
   }
 
-  public JType jType(VTypeKind type) {
-    return jTypes.get(type);
+  public JType jType(VTypeKind kind) {
+    return jTypes.get(kind);
   }
 
-  public JType jType(String named, VTypeKind type) {
-    return createType(type.nameFor(named + name), list(jType(type)));
+  public JType jType(String named, VTypeKind kind) {
+    return createType(kind.nameFor(named + name), list(jType(kind)));
   }
 
   private JType createType(String newTypeName, ImmutableList<JType> superTypes) {
@@ -250,8 +250,8 @@ public class VType {
     return kind;
   }
 
-  public String apiCreateName(VTypeKind type) {
-    return UPPER_CAMEL.to(LOWER_CAMEL, jType(type).name());
+  public String apiCreateName(VTypeKind kind) {
+    return UPPER_CAMEL.to(LOWER_CAMEL, jType(kind).name());
   }
 
   @Override
