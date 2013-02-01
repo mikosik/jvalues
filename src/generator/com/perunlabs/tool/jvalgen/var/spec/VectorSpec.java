@@ -43,11 +43,13 @@ public class VectorSpec {
   public static final VFunction LENGTH = length();
   public static final VFunction ANGLE = angle();
   public static final VFunction TO_GLOBAL_POINT = toGlobalPoint();
+  public static final VFunction TO_LOCAL_POINT = toLocalPoint();
   public static final VFunction DOT_PRODUCT = dotProduct();
   public static final VFunction CROSS_PRODUCT = crossProduct();
 
   public static final ImmutableList<VFunction> ALL_OPERATIONS = list(ADD, SUB, MUL, DIV, NEG,
-      CLAMP, ROTATE, VERSOR_AT_ANGLE, LENGTH, ANGLE, TO_GLOBAL_POINT, DOT_PRODUCT, CROSS_PRODUCT);
+      CLAMP, ROTATE, VERSOR_AT_ANGLE, LENGTH, ANGLE, TO_GLOBAL_POINT, TO_LOCAL_POINT, DOT_PRODUCT,
+      CROSS_PRODUCT);
 
   private static ExpressionVFunction clamp() {
     VParam vector = vParam(VECTOR, "vector");
@@ -142,6 +144,20 @@ public class VectorSpec {
     VExpression result = ADD.vCall(rotated, location);
 
     return vFunction(VECTOR, VECTOR, "toGlobalPoint", list(vector, position), result, false);
+  }
+
+  private static VFunction toLocalPoint() {
+    VParam vector = vParam(VECTOR, "vector");
+    VParam position = vParam(QUANTITY, "position");
+
+    VExpression location = vComponentAccess(position, QUANTITY.vector);
+    VExpression angle = vComponentAccess(position, QUANTITY.angle);
+    VExpression negatedAngle = FloatSpec.NEG.vCall(angle);
+
+    VExpression moved = SUB.vCall(vector, location);
+    VExpression result = ROTATE.vCall(moved, negatedAngle);
+
+    return vFunction(VECTOR, VECTOR, "toLocalPoint", list(vector, position), result, false);
   }
 
   private static VFunction dotProduct() {
