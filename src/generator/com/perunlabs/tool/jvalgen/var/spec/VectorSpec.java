@@ -46,10 +46,12 @@ public class VectorSpec {
   public static final VFunction TO_LOCAL_POINT = toLocalPoint();
   public static final VFunction DOT_PRODUCT = dotProduct();
   public static final VFunction CROSS_PRODUCT = crossProduct();
+  public static final VFunction RIGHT_NORMAL = rightNormal();
+  public static final VFunction LEFT_NORMAL = leftNormal();
 
   public static final ImmutableList<VFunction> ALL_OPERATIONS = list(ADD, SUB, MUL, DIV, NEG,
       CLAMP, ROTATE, VERSOR_AT_ANGLE, LENGTH, ANGLE, TO_GLOBAL_POINT, TO_LOCAL_POINT, DOT_PRODUCT,
-      CROSS_PRODUCT);
+      CROSS_PRODUCT, RIGHT_NORMAL, LEFT_NORMAL);
 
   private static ExpressionVFunction clamp() {
     VParam vector = vParam(VECTOR, "vector");
@@ -194,5 +196,31 @@ public class VectorSpec {
     VExpression result = FloatSpec.SUB.vCall(a, b);
 
     return vFunction(VECTOR, VFLOAT, "crossProduct", list(vector1, vector2), result, false);
+  }
+
+  private static VFunction rightNormal() {
+    VParam vector = vParam(VECTOR, "vector");
+
+    VExpression xOrig = vComponentAccess(vector, VECTOR.x);
+    VExpression yOrig = vComponentAccess(vector, VECTOR.y);
+
+    VExpression tmpX = extractedVExpr("tmpX", FloatSpec.NEG.vCall(xOrig));
+
+    VExpression result = vCreate(VECTOR, list(yOrig, tmpX));
+
+    return vFunction(VECTOR, VECTOR, "rightNormal", list(vector), result, false);
+  }
+
+  private static VFunction leftNormal() {
+    VParam vector = vParam(VECTOR, "vector");
+
+    VExpression xOrig = vComponentAccess(vector, VECTOR.x);
+    VExpression yOrig = vComponentAccess(vector, VECTOR.y);
+
+    VExpression tmpY = extractedVExpr("tmpY", FloatSpec.NEG.vCall(yOrig));
+
+    VExpression result = vCreate(VECTOR, list(tmpY, xOrig));
+
+    return vFunction(VECTOR, VECTOR, "leftNormal", list(vector), result, false);
   }
 }
