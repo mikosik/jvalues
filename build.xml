@@ -55,7 +55,7 @@
     </javac>
   </target>
 
-  <target name="jar.jvalues" depends="compile.jvalues">
+  <target name="release" depends="compile.jvalues">
     <jar destfile="${release}/jvalues.jar">
       <fileset dir="${build.jvalues}" />
       <fileset dir="${src.jvalues}" />
@@ -87,7 +87,7 @@
     </javac>
   </target>
 
-  <target name="jar.jvalues-jdk5" depends="compile.jvalues-jdk5">
+  <target name="release-jdk5" depends="compile.jvalues-jdk5">
     <jar destfile="${release}/jvalues.jar">
       <fileset dir="${build.jvalues}" />
       <fileset dir="${src.jvalues}" />
