@@ -212,13 +212,8 @@ public class VType {
 
   public JExpression newInstance(String named, VTypeKind kind, Iterable<? extends JExpression> args) {
     JType returnType = jType(named, mappedKind(kind));
-    if (kind == XxxC) {
-      String callString = returnType.name() + "." + apiCreateName(kind);
-      return jCall(returnType, callString, args, list(returnType));
-    } else {
-      String callString = "new " + returnType.name();
-      return jCall(returnType, callString, args, list(returnType));
-    }
+    String callString = "new " + returnType.name();
+    return jCall(returnType, callString, args, list(returnType));
   }
 
   public JExpression apiCreate(VTypeKind kind, Iterable<? extends JExpression> args) {

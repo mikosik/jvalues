@@ -69,6 +69,7 @@ import com.perunlabs.tool.jvalgen.java.type.JExpression;
 import com.perunlabs.tool.jvalgen.java.type.JExpressions;
 import com.perunlabs.tool.jvalgen.java.type.JField;
 import com.perunlabs.tool.jvalgen.java.type.JLocalVar;
+import com.perunlabs.tool.jvalgen.java.type.JModifiers;
 import com.perunlabs.tool.jvalgen.java.type.JParam;
 import com.perunlabs.tool.jvalgen.java.type.JStatement;
 import com.perunlabs.tool.jvalgen.java.type.JType;
@@ -112,7 +113,6 @@ public class VTypeGenerator {
   private final ImmutableList<JParam> jParamCComps;
   private final ImmutableList<JParam> jParamReadComps;
   private final ImmutableList<JParam> jParamSetComps;
-  private final ImmutableList<JParam> jParamImmutableComps;
   private final ImmutableList<JParam> jParamMostPGComps;
 
   /*
@@ -152,7 +152,6 @@ public class VTypeGenerator {
     this.jParamCComps = toJParam(vComponents(), XxxC);
     this.jParamReadComps = toJParam(vComponents(), Readable);
     this.jParamSetComps = toJParam(vComponents(), Settable);
-    this.jParamImmutableComps = toJParam(vComponents(), Immutable);
     this.jParamMostPGComps = toJParam(vComponents(), MostPrimitiveG);
 
     this.xxxGName = type.apiCreateName(XxxG);
@@ -407,16 +406,12 @@ public class VTypeGenerator {
   private void createXxxC() {
     ClassGenerator klass = gen.newClass(xxxC).addExtends(abstXxxG);
 
-    {
-      MethodGenerator met = klass.newStaticMethod(xxxC, xxxCName, jParamImmutableComps);
-      met.add(jReturn(jCall(xxxC, "new " + xxxC.name(), jParamImmutableComps)));
-    }
-
-    klass.addCopyConstructor(JAccess.PRIVATE, toFinal(toJField(vComponents(), Immutable)));
+    klass.addCopyConstructor(toFinal(toJField(vComponents(), Immutable)));
 
     for (VComponent vComp : vComponents()) {
       JType immutable = vComp.jType(Immutable);
       MethodGenerator met = klass.newMethod(immutable, vComp.accessor()).addOverride();
+      met.setJModifiers(JModifiers.finalJModifiers(JAccess.PUBLIC));
       met.add(jReturn(jExpr(immutable, vComp.name())));
     }
   }
