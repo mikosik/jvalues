@@ -25,6 +25,10 @@ public class JModifiers {
     return new JModifiers(JAccess.NONE, false, true);
   }
 
+  public static JModifiers jModifiers(JAccess jAccess) {
+    return new JModifiers(jAccess, false, false);
+  }
+
   private JModifiers(JAccess access, boolean isStatic, boolean isFinal) {
     this.access = access;
     this.isStatic = isStatic;

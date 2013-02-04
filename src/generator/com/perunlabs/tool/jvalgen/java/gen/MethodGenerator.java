@@ -3,6 +3,7 @@ package com.perunlabs.tool.jvalgen.java.gen;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.perunlabs.tool.jvalgen.java.gen.IndentingWriter.INDENT;
 import static com.perunlabs.tool.jvalgen.java.gen.IndentingWriter.INDENT3;
+import static com.perunlabs.tool.jvalgen.java.type.JModifiers.jModifiers;
 import static com.perunlabs.tool.jvalgen.java.type.JParams.toDeclaration;
 
 import java.util.List;
@@ -14,13 +15,14 @@ import com.perunlabs.tool.jvalgen.java.type.JAccess;
 import com.perunlabs.tool.jvalgen.java.type.JBlock;
 import com.perunlabs.tool.jvalgen.java.type.JDeclarable;
 import com.perunlabs.tool.jvalgen.java.type.JExpression;
+import com.perunlabs.tool.jvalgen.java.type.JModifiers;
 import com.perunlabs.tool.jvalgen.java.type.JParam;
 import com.perunlabs.tool.jvalgen.java.type.JReturn;
 import com.perunlabs.tool.jvalgen.java.type.JStatement;
 import com.perunlabs.tool.jvalgen.java.type.JType;
 
 public class MethodGenerator {
-  private final JAccess jAccess;
+  private JModifiers jModifiers;
   private final JType returnJType;
   private final String name;
   private final ImmutableList<JParam> jParams;
@@ -34,12 +36,12 @@ public class MethodGenerator {
 
   public MethodGenerator(JType returnJType, String name, ImmutableList<JParam> jParams,
       ClassGenerator classGenerator, boolean isStatic) {
-    this(JAccess.PUBLIC, returnJType, name, jParams, classGenerator, isStatic);
+    this(jModifiers(JAccess.PUBLIC), returnJType, name, jParams, classGenerator, isStatic);
   }
 
-  public MethodGenerator(JAccess jAccess, JType returnJType, String name,
+  public MethodGenerator(JModifiers jModifiers, JType returnJType, String name,
       ImmutableList<JParam> jParams, ClassGenerator classGenerator, boolean isStatic) {
-    this.jAccess = jAccess;
+    this.jModifiers = jModifiers;
     this.returnJType = returnJType;
     this.name = name;
     this.jParams = jParams;
@@ -53,6 +55,10 @@ public class MethodGenerator {
     for (JParam jParam : jParams) {
       addImportsFor(jParam);
     }
+  }
+
+  public void setJModifiers(JModifiers jModifiers) {
+    this.jModifiers = jModifiers;
   }
 
   private void addImportsFor(JDeclarable jDecl) {
@@ -168,7 +174,7 @@ public class MethodGenerator {
   }
 
   private String modifiers() {
-    String result = jAccess.code();
+    String result = jModifiers.code();
     if (isStatic) {
       result += "static ";
     }

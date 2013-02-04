@@ -3,6 +3,7 @@ package com.perunlabs.tool.jvalgen.java.gen;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 import static com.perunlabs.tool.jvalgen.java.type.JFields.toJParam;
+import static com.perunlabs.tool.jvalgen.java.type.JModifiers.jModifiers;
 import static com.perunlabs.tool.jvalgen.java.type.JParams.toFinal;
 import static com.perunlabs.tool.jvalgen.java.type.JStatements.jAssign;
 import static com.perunlabs.tool.jvalgen.java.type.JType.JRUNNABLE;
@@ -25,6 +26,7 @@ import com.perunlabs.tool.jvalgen.Utils;
 import com.perunlabs.tool.jvalgen.java.type.JAccess;
 import com.perunlabs.tool.jvalgen.java.type.JExpressions;
 import com.perunlabs.tool.jvalgen.java.type.JField;
+import com.perunlabs.tool.jvalgen.java.type.JModifiers;
 import com.perunlabs.tool.jvalgen.java.type.JParam;
 import com.perunlabs.tool.jvalgen.java.type.JParams;
 import com.perunlabs.tool.jvalgen.java.type.JType;
@@ -119,7 +121,8 @@ public class ClassGenerator {
   }
 
   public MethodGenerator newConstructor(JAccess jAccess, ImmutableList<JParam> jParams) {
-    MethodGenerator methodGenerator = new MethodGenerator(jAccess, null, jType.name(), jParams,
+    JModifiers jModifiers = jModifiers(jAccess);
+    MethodGenerator methodGenerator = new MethodGenerator(jModifiers, null, jType.name(), jParams,
         this, false);
     methodGenerators.add(methodGenerator);
     return methodGenerator;
