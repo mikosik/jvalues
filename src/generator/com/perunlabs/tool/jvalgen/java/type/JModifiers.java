@@ -14,15 +14,23 @@ public class JModifiers {
   }
 
   public static JModifiers privateFinal() {
-    return new JModifiers(JAccess.PRIVATE, false, true);
+    return finalJModifiers(JAccess.PRIVATE);
+  }
+
+  public static JModifiers publicFinal() {
+    return finalJModifiers(JAccess.PUBLIC);
+  }
+
+  public static JModifiers finalJParam() {
+    return finalJModifiers(JAccess.NONE);
+  }
+
+  public static JModifiers finalJModifiers(JAccess jAccess) {
+    return new JModifiers(jAccess, false, true);
   }
 
   public static JModifiers privateJField() {
     return new JModifiers(JAccess.PRIVATE, false, false);
-  }
-
-  public static JModifiers finalJParam() {
-    return new JModifiers(JAccess.NONE, false, true);
   }
 
   public static JModifiers jModifiers(JAccess jAccess) {
