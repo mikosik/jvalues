@@ -129,6 +129,39 @@ public class AllVTypes {
   }
 
   /*
+   * FRAME3
+   */
+
+  public static final VFrame3 FRAME3 = new VFrame3();
+
+  public static class VFrame3 extends VType {
+    public final VComponent left;
+    public final VComponent right;
+    public final VComponent bottom;
+    public final VComponent top;
+    public final VComponent near;
+    public final VComponent far;
+
+    public VFrame3() {
+      this(new ObjectiveVComponent(VFLOAT, "left"), new ObjectiveVComponent(VFLOAT, "right"),
+          new ObjectiveVComponent(VFLOAT, "bottom"), new ObjectiveVComponent(VFLOAT, "top"),
+          new ObjectiveVComponent(VFLOAT, "near"), new ObjectiveVComponent(VFLOAT, "far"));
+    }
+
+    public VFrame3(VComponent left, VComponent right, VComponent bottom, VComponent top,
+        VComponent near, VComponent far) {
+      super(p("frame3"), "Frame3", list(left, right, bottom, top, near, far));
+
+      this.left = left;
+      this.right = right;
+      this.bottom = bottom;
+      this.top = top;
+      this.near = near;
+      this.far = far;
+    }
+  }
+
+  /*
    * QUANTITY
    */
 
@@ -178,7 +211,7 @@ public class AllVTypes {
   }
 
   public static final ImmutableList<VType> COMPOUND_VAR_TYPES = list(VECTOR, VECTOR3, FRAME,
-      QUANTITY, QUAD);
+      FRAME3, QUANTITY, QUAD);
 
   public static final ImmutableList<VType> ALL_VAR_TYPES = ImmutableList.copyOf(Iterables.concat(
       BASIC_VAR_TYPES, COMPOUND_VAR_TYPES));
