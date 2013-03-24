@@ -5,6 +5,8 @@ import static com.perunlabs.tool.jvalgen.var.expr.ExtractedVExpr.extractedVExpr;
 import static com.perunlabs.tool.jvalgen.var.expr.VComponentAccesss.vComponentAccess;
 import static com.perunlabs.tool.jvalgen.var.expr.VCreate.vCreate;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.FRAME;
+import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.QUAD;
+import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.QUANTITY;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.VBOOL;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.VECTOR;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.VFLOAT;
@@ -30,10 +32,11 @@ public class FrameSpec {
   public static final VFunction IS_OVERLAPPING = isOverlapping();
 
   public static final VFunction MOVE = move();
+  public static final VFunction TO_GLOBAL = toGlobal();
   public static final VFunction MUL = compoundLowVFunction(FRAME, FloatSpec.MUL);
 
   public static final ImmutableList<VFunction> ALL_OPERATIONS = list(CENTER, WIDTH, HEIGHT, SIZE,
-      ASPEC_RATIO, IS_OVERLAPPING, MOVE, MUL);
+      ASPEC_RATIO, IS_OVERLAPPING, MOVE, TO_GLOBAL, MUL);
 
   private static ExpressionVFunction center() {
     VParam frame = vParam(FRAME, "frame");
@@ -148,5 +151,14 @@ public class FrameSpec {
     VExpression result = vCreate(FRAME, list(l, r, b, t));
 
     return vFunction(FRAME, FRAME, "move", list(frame, vector), result, false);
+  }
+
+  private static ExpressionVFunction toGlobal() {
+    VParam frame = vParam(FRAME, "frame");
+    VParam quantity = vParam(QUANTITY, "quantity");
+
+    VExpression quad = QuadSpec.TO_QUAD.vCall(frame);
+    VExpression toGlobaled = QuadSpec.TO_GLOBAL.vCall(quad, quantity);
+    return vFunction(FRAME, QUAD, "toGlobal", list(frame, quantity), toGlobaled, false);
   }
 }

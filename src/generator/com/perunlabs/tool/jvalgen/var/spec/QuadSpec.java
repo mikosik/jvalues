@@ -5,6 +5,7 @@ import static com.perunlabs.tool.jvalgen.var.expr.VComponentAccesss.vComponentAc
 import static com.perunlabs.tool.jvalgen.var.expr.VCreate.vCreate;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.FRAME;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.QUAD;
+import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.QUANTITY;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.VECTOR;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.VFLOAT;
 import static com.perunlabs.tool.jvalgen.var.type.VFunctions.vFunction;
@@ -22,8 +23,10 @@ public class QuadSpec {
   public static VFunction MOVE = move();
   public static VFunction TO_QUAD = toQuad();
   public static VFunction ROTATE = rotate();
+  public static final VFunction TO_GLOBAL = toGlobal();
 
-  public static final ImmutableList<VFunction> ALL_OPERATIONS = list(MOVE, TO_QUAD, ROTATE);
+  public static final ImmutableList<VFunction> ALL_OPERATIONS = list(MOVE, TO_QUAD, ROTATE,
+      TO_GLOBAL);
 
   private static ExpressionVFunction move() {
     VParam quad = vParam(QUAD, "quad");
@@ -79,5 +82,18 @@ public class QuadSpec {
     VExpression result = vCreate(QUAD, list(v1, v2, v3, v4));
 
     return vFunction(QUAD, QUAD, "rotate", list(quad, angle), result, false);
+  }
+
+  private static ExpressionVFunction toGlobal() {
+    VParam quad = vParam(QUAD, "quad");
+    VParam quantity = vParam(QUANTITY, "quantity");
+
+    VExpression angle = vComponentAccess(quantity, QUANTITY.angle);
+    VExpression rotated = ROTATE.vCall(quad, angle);
+
+    VExpression vector = vComponentAccess(quantity, QUANTITY.vector);
+    VExpression moved = QuadSpec.MOVE.vCall(rotated, vector);
+
+    return vFunction(QUAD, QUAD, "toGlobal", list(quad, quantity), moved, false);
   }
 }
