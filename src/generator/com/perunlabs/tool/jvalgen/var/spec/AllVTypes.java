@@ -102,6 +102,69 @@ public class AllVTypes {
   }
 
   /*
+   * VECTOR4
+   */
+
+  public static final VMatrix4 MATRIX4 = new VMatrix4();
+
+  public static class VMatrix4 extends VType {
+    public final VComponent c11;
+    public final VComponent c12;
+    public final VComponent c13;
+    public final VComponent c14;
+    public final VComponent c21;
+    public final VComponent c22;
+    public final VComponent c23;
+    public final VComponent c24;
+    public final VComponent c31;
+    public final VComponent c32;
+    public final VComponent c33;
+    public final VComponent c34;
+    public final VComponent c41;
+    public final VComponent c42;
+    public final VComponent c43;
+    public final VComponent c44;
+
+    public VMatrix4() {
+      this(new ObjectiveVComponent(VFLOAT, "c11"), new ObjectiveVComponent(VFLOAT, "c12"),
+          new ObjectiveVComponent(VFLOAT, "c13"), new ObjectiveVComponent(VFLOAT, "c14"),
+
+          new ObjectiveVComponent(VFLOAT, "c21"), new ObjectiveVComponent(VFLOAT, "c22"),
+          new ObjectiveVComponent(VFLOAT, "c23"), new ObjectiveVComponent(VFLOAT, "c24"),
+
+          new ObjectiveVComponent(VFLOAT, "c31"), new ObjectiveVComponent(VFLOAT, "c32"),
+          new ObjectiveVComponent(VFLOAT, "c33"), new ObjectiveVComponent(VFLOAT, "c34"),
+
+          new ObjectiveVComponent(VFLOAT, "c41"), new ObjectiveVComponent(VFLOAT, "c42"),
+          new ObjectiveVComponent(VFLOAT, "c43"), new ObjectiveVComponent(VFLOAT, "c44"));
+    }
+
+    public VMatrix4(VComponent c11, VComponent c12, VComponent c13, VComponent c14, VComponent c21,
+        VComponent c22, VComponent c23, VComponent c24, VComponent c31, VComponent c32,
+        VComponent c33, VComponent c34, VComponent c41, VComponent c42, VComponent c43,
+        VComponent c44) {
+      super(p("matrix4"), "Matrix4", list(c11, c12, c13, c14, c21, c22, c23, c24, c31, c32, c33,
+          c34, c41, c42, c43, c44));
+      this.c11 = c11;
+      this.c12 = c12;
+      this.c13 = c13;
+      this.c14 = c14;
+      this.c21 = c21;
+      this.c22 = c22;
+      this.c23 = c23;
+      this.c24 = c24;
+      this.c31 = c31;
+      this.c32 = c32;
+      this.c33 = c33;
+      this.c34 = c34;
+      this.c41 = c41;
+      this.c42 = c42;
+      this.c43 = c43;
+      this.c44 = c44;
+    }
+  }
+
+  /*
    * FRAME
    */
 
@@ -210,8 +273,8 @@ public class AllVTypes {
     }
   }
 
-  public static final ImmutableList<VType> COMPOUND_VAR_TYPES = list(VECTOR, VECTOR3, FRAME,
-      FRAME3, QUANTITY, QUAD);
+  public static final ImmutableList<VType> COMPOUND_VAR_TYPES = list(VECTOR, VECTOR3, MATRIX4,
+      FRAME, FRAME3, QUANTITY, QUAD);
 
   public static final ImmutableList<VType> ALL_VAR_TYPES = ImmutableList.copyOf(Iterables.concat(
       BASIC_VAR_TYPES, COMPOUND_VAR_TYPES));

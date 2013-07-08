@@ -2,6 +2,7 @@ package com.perunlabs.tool.jvalgen.var.gen;
 
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.FRAME;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.FRAME3;
+import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.MATRIX4;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.QUAD;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.QUANTITY;
 import static com.perunlabs.tool.jvalgen.var.spec.AllVTypes.VBOOL;
@@ -22,6 +23,7 @@ import com.perunlabs.tool.jvalgen.var.spec.Frame3Spec;
 import com.perunlabs.tool.jvalgen.var.spec.FrameSpec;
 import com.perunlabs.tool.jvalgen.var.spec.IntSpec;
 import com.perunlabs.tool.jvalgen.var.spec.LongSpec;
+import com.perunlabs.tool.jvalgen.var.spec.Matrix4Spec;
 import com.perunlabs.tool.jvalgen.var.spec.QuadSpec;
 import com.perunlabs.tool.jvalgen.var.spec.QuantitySpec;
 import com.perunlabs.tool.jvalgen.var.spec.Vector3Spec;
@@ -44,6 +46,7 @@ public class JValuesGenerator {
 
     new VTypeGenerator(generator, apiClassGen, VECTOR, VectorSpec.ALL_OPERATIONS).generate();
     new VTypeGenerator(generator, apiClassGen, VECTOR3, Vector3Spec.ALL_OPERATIONS).generate();
+    new VTypeGenerator(generator, apiClassGen, MATRIX4, Matrix4Spec.ALL_OPERATIONS).generate();
     new VTypeGenerator(generator, apiClassGen, FRAME, FrameSpec.ALL_OPERATIONS).generate();
     new VTypeGenerator(generator, apiClassGen, FRAME3, Frame3Spec.ALL_OPERATIONS).generate();
     new VTypeGenerator(generator, apiClassGen, QUANTITY, QuantitySpec.ALL_OPERATIONS).generate();
