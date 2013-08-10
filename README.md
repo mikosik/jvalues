@@ -1,5 +1,5 @@
 
-Starting with jValues is easy, just grab jar file from http://code.google.com/p/jvalues/downloads/list and add it to your project. You need to import all methods from one class to start with jValues:
+Starting with jValues is easy, just grab jar file from https://github.com/mikosik/jvalues/releases and add it to your project. You need to import all methods from one class to start with jValues:
 
 ```java
 import static com.perunlabs.common.vars.V.*;
