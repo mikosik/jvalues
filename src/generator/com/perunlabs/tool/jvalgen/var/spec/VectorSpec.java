@@ -204,9 +204,10 @@ public class VectorSpec {
     VExpression xOrig = vComponentAccess(vector, VECTOR.x);
     VExpression yOrig = vComponentAccess(vector, VECTOR.y);
 
-    VExpression tmpX = extractedVExpr("tmpX", FloatSpec.NEG.vCall(xOrig));
+    VExpression newX = extractedVExpr("newX", yOrig);
+    VExpression newY = extractedVExpr("newY", FloatSpec.NEG.vCall(xOrig));
 
-    VExpression result = vCreate(VECTOR, list(yOrig, tmpX));
+    VExpression result = vCreate(VECTOR, list(newX, newY));
 
     return vFunction(VECTOR, VECTOR, "rightNormal", list(vector), result, false);
   }
@@ -217,9 +218,10 @@ public class VectorSpec {
     VExpression xOrig = vComponentAccess(vector, VECTOR.x);
     VExpression yOrig = vComponentAccess(vector, VECTOR.y);
 
-    VExpression tmpY = extractedVExpr("tmpY", FloatSpec.NEG.vCall(yOrig));
+    VExpression newX = extractedVExpr("newX", FloatSpec.NEG.vCall(yOrig));
+    VExpression newY = extractedVExpr("newY", xOrig);
 
-    VExpression result = vCreate(VECTOR, list(tmpY, xOrig));
+    VExpression result = vCreate(VECTOR, list(newX, newY));
 
     return vFunction(VECTOR, VECTOR, "leftNormal", list(vector), result, false);
   }
