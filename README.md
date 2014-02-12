@@ -14,7 +14,7 @@ FloatC pi = floatC(3.14f);
 FloatV radius = floatV(2);
 ```
 
-We've just created const (immutable) `pi` value and `radius` variable (mutable). Both objects implement `FloatG` interface which has just one method returning `float`. This way method can accept `FloatG` type when they don't care whether they arguments are mutable or not. Methods can also force callers to use const types when immutability is needed (for example in case of concurrent code). Let me just print this interface here to make everything clear.
+We've just created constant `pi` (immutable object)  value and `radius` variable (mutable object). Both objects implement `FloatG` interface which has just one method returning `float`. This way method can accept `FloatG` type when they don't care whether they arguments are mutable or not. Methods can also force callers to use const types when immutability is needed (for example in case of concurrent code). Let me just print this interface here to make everything clear.
 
 ```java
 public interface FloatG {
@@ -28,7 +28,7 @@ Seems trivial so far but wait a little bit and we reach some magic soon. For now
 radius.mul(2);
 ```
 
-`FloatV` supports most common operations you would require from `floats`. Now all of these give nothing more than normal primitive java values. Let' make use the fact that we are dealing with real objects. The `V` class from which we imported all static methods at the beginning comes with set of methods that allow us to create just-in-time calculated values. Let's calculate perimeter of a circle using well known formula p = 2 \pi r\,. It should go like this (we are reusing `pi` and `radius` objects declared a few lines above):
+`FloatV` supports most common operations you would require from `floats`. Now all of these give us nothing more than normal primitive java values. Let' make use the fact that we are dealing with real objects. The `com.perunlabs.common.vars.V` class from which we imported all static methods at the beginning comes with set of methods that allow us to create just-in-time calculated values. Let's calculate perimeter of a circle using well known formula p = 2 \pi r\,. It should go like this (we are reusing `pi` and `radius` objects declared a few lines above):
 
 ```java
 FloatG perimeter = mul(radius, mul(pi, floatC(2)));
@@ -41,7 +41,7 @@ Now we can change the value of `radius`
 radius.set(10);
 ```
 
-and `perimeter` value object will be updated automatically.
+and `perimeter` value is updated automatically.
 
 ```java
 System.out.println(perimeter) // prints 62.8
