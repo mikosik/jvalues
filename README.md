@@ -25,7 +25,7 @@ public interface FloatG {
 Seems trivial so far but wait a little bit and we reach some magic soon. For now let's see normal way to perform operation on `FloatV` variables. We have already created `radius` and stored 2 in it. We can simply multiply it by 3 this way:
 
 ```java
-radius.mul(2);
+radius.mul(3);
 ```
 
 `FloatV` supports most common operations you would require from `floats`. Now all of these give us nothing more than normal primitive java values. Let' make use the fact that we are dealing with real objects. The `com.perunlabs.common.vars.V` class from which we imported all static methods at the beginning comes with set of methods that allow us to create just-in-time calculated values. Let's calculate perimeter of a circle using well known formula p = 2 \pi r\,. It should go like this (we are reusing `pi` and `radius` objects declared a few lines above):
