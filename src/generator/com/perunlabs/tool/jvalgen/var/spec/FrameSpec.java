@@ -30,6 +30,7 @@ public class FrameSpec {
   public static final VFunction ASPEC_RATIO = aspectRatio();
 
   public static final VFunction IS_OVERLAPPING = isOverlapping();
+  public static final VFunction CONTAINS_POINT = containsPoint();
 
   public static final VFunction MOVE = move();
   public static final VFunction TO_GLOBAL = toGlobal();
@@ -122,6 +123,31 @@ public class FrameSpec {
     VExpression result = BoolSpec.AND.vCall(and2, cond4);
 
     return vFunction(FRAME, VBOOL, "isOverlapping", list(frame, frame2), result, false);
+  }
+
+  private static ExpressionVFunction containsPoint() {
+    VParam frame = vParam(FRAME, "frame");
+    VParam point = vParam(VECTOR, "point");
+
+    VExpression l = vComponentAccess(frame, FRAME.left);
+    VExpression r = vComponentAccess(frame, FRAME.right);
+    VExpression b = vComponentAccess(frame, FRAME.bottom);
+    VExpression t = vComponentAccess(frame, FRAME.top);
+
+    VExpression x = vComponentAccess(point, VECTOR.x);
+    VExpression y = vComponentAccess(point, VECTOR.y);
+
+    VExpression cond1 = FloatSpec.IS_GTEQ.vCall(r, x);
+    VExpression cond2 = FloatSpec.IS_GTEQ.vCall(x, l);
+    VExpression cond3 = FloatSpec.IS_GTEQ.vCall(t, y);
+    VExpression cond4 = FloatSpec.IS_GTEQ.vCall(y, b);
+
+    VExpression and1 = BoolSpec.AND.vCall(cond1, cond2);
+    VExpression and2 = BoolSpec.AND.vCall(and1, cond3);
+
+    VExpression result = BoolSpec.AND.vCall(and2, cond4);
+
+    return vFunction(FRAME, VBOOL, "isOverlapping", list(frame, point), result, false);
   }
 
   private static ExpressionVFunction move() {
